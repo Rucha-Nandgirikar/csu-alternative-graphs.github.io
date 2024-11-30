@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Display All Graphs</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script type="module" src="./index.js"></script>
+    <style>
+        .chart-container {
+            margin: 20px auto;
+            padding: 10px;
+            border: 1px solid #ccc;
+            width: 80%;
+        }
+    </style>
+</head>
+<body>
+    <h1>Graphs Visualization</h1>
+    <div id="chartPlaceholder1" class="chart-container"></div>
+    <div id="chartPlaceholder2" class="chart-container"></div>
+    <div id="chartPlaceholder3" class="chart-container"></div>
+    <div id="chartPlaceholder4" class="chart-container"></div>
+    <div id="chartPlaceholder5" class="chart-container"></div>
+
+    <script type="module">
+        import {
+            
+            displayMyEquityGapsMajorGaps,
+            displayStudentProgressUnits,
+            displayGoalTrajectories,
+            displayWhatPathDoTheyFollow,
+            displayEnrollingAndGraduating
+            
+            
+        } from "./chart.js";
+
+        // Select placeholders and render charts
+        const placeholder1 = document.getElementById('chartPlaceholder1');
+        const placeholder2 = document.getElementById('chartPlaceholder2');
+        const placeholder3 = document.getElementById('chartPlaceholder3');
+        const placeholder4 = document.getElementById('chartPlaceholder4');
+        const placeholder5 = document.getElementById('chartPlaceholder5');
+
+      
+        displayMyEquityGapsMajorGaps(placeholder1);
+        displayStudentProgressUnits(placeholder2);
+        displayGoalTrajectories(placeholder3);
+        displayWhatPathDoTheyFollow(placeholder4);
+        displayEnrollingAndGraduating(placeholder5);
+       
+    </script>
+</body>
+</html>
