@@ -439,12 +439,15 @@ export function displayWhatPathDoTheyFollow(chartPlaceholder)
     // queryString;
 
     const canvasElement = document.createElement("canvas");
+    // const h4Element = document.createElement("h4");
+    // h4Element.innerText = "4) graduation-initiative/goal-trajectories"; 
     canvasElement.id = "myPieChart";
     canvasElement.style.border = "1px solid black";
     canvasElement.style.padding = "10px";
     canvasElement.style.margin = "auto";
     canvasElement.style.height = "400px";
     canvasElement.style.width = "600px";
+    // canvasElement.appendChild(h4Element);
     chartPlaceholder.appendChild(canvasElement);
 
     fetch(fullUrl, {
@@ -496,14 +499,30 @@ export function displayWhatPathDoTheyFollow(chartPlaceholder)
                      },
                      title: {
                       display: true,
-                      text: `CSU Major Migration for all First-time Full-time Freshmen who Graduated in 2021, 2022, or 2023 `
+                      text: [
+                        'CSU Major Migration for all First-time Full-time Freshmen who Graduated in 2021, 2022, or 2023',
+                        `School of Arts and Humanities: ${totalStudents} students`
+                    ]
                     },
                      tooltip: {
                          callbacks: {
+                          title: function(tooltipItems) {
+                            // Access the dataIndex and retrieve nStudents
+                            const index = tooltipItems[0].dataIndex;
+                            const nStudents = data.seriesData[index].nStudents;
+                            const major = data.seriesData[index].from;
+                            
+                            // Return the heading with nStudents
+                            return `From College ${major}: ${nStudents} students`;
+                        },
                              label: function(tooltipItem) {
                                  const value = tooltipItem.raw.toFixed(2);
-                                 return `${tooltipItem.label}: ${value}%`;
-                             }
+                                 const lines = [
+                                  `\tApproximately ${value}% of students graduating from the School of Arts and Humanities began as`,
+                                  `students in the ${tooltipItem.label}`
+                              ];
+                                return lines;
+                             },
                          }
                      }
                  }
@@ -792,14 +811,17 @@ export function displayGoalTrajectories(chartPlaceholder) {
   const url = "https://studentresearch.dashboards.calstate.edu/api/graduation-initiative/goal-trajectories/ftf_6yr_pell/ZZ";
 
   const fullUrl = `${url}`;
-
+ 
   const canvasElement = document.createElement("canvas");
+  // const h4Element = document.createElement("h4");
+  // h4Element.innerText = "3) graduation-initiative/goal-trajectories"; 
   canvasElement.id = "myAreaChart";
   canvasElement.style.border = "1px solid black";
   canvasElement.style.padding = "10px";
   canvasElement.style.margin = "auto";
   canvasElement.style.height = "400px";
   canvasElement.style.width = "600px";
+  // chartPlaceholder.appendChild(h4Element);
   chartPlaceholder.appendChild(canvasElement);
 
   fetch(fullUrl, {
@@ -1053,49 +1075,51 @@ export function displayGoalTrajectories(chartPlaceholder) {
 // }
 
 
-export function displayEnrollingAndGraduating(chartPlaceholder) {
-  // Create the main container (canvas element)
-  const canvasElement = document.createElement("div");
-  canvasElement.id = "myEnrollingAndGraduating";
-  canvasElement.style.border = "1px solid black";
-  canvasElement.style.padding = "10px";
-  canvasElement.style.margin = "auto";
-  canvasElement.style.height = "500px"; // Increased height for image and hover areas
-  canvasElement.style.width = "600px";
-  canvasElement.style.display = "flex";
-  canvasElement.style.flexDirection = "column";
-  canvasElement.style.alignItems = "center"; // Center elements horizontally
-  canvasElement.style.position = "relative"; // Required for absolute positioning of tooltips
-  chartPlaceholder.appendChild(canvasElement);
+// export function displayEnrollingAndGraduating(chartPlaceholder) {
+//   // Create the main container (canvas element)
+//   const canvasElement = document.createElement("div");
+  
+//   canvasElement.id = "myEnrollingAndGraduating";
+//   canvasElement.style.border = "1px solid black";
+//   canvasElement.style.padding = "10px";
+//   canvasElement.style.margin = "auto";
+//   canvasElement.style.height = "500px"; // Increased height for image and hover areas
+//   canvasElement.style.width = "600px";
+//   canvasElement.style.display = "flex";
+//   canvasElement.style.flexDirection = "column";
+//   canvasElement.style.alignItems = "center"; // Center elements horizontally
+//   canvasElement.style.position = "relative"; // Required for absolute positioning of tooltips
+  
+//   chartPlaceholder.appendChild(canvasElement);
 
-  // Create the image container
-  const imageContainer = document.createElement('div');
-  imageContainer.className = 'image-container';
-  imageContainer.style.position = 'relative';
-  imageContainer.style.width = '100%';
-  imageContainer.style.height = 'auto';
-  imageContainer.style.display = 'flex';
+//   // Create the image container
+//   const imageContainer = document.createElement('div');
+//   imageContainer.className = 'image-container';
+//   imageContainer.style.position = 'relative';
+//   imageContainer.style.width = '100%';
+//   imageContainer.style.height = 'auto';
+//   imageContainer.style.display = 'flex';
 
-  // Add the image
-  const img = document.createElement('img');
-  img.src = 'enrolling-and-graduating.png'; // Replace with your image URL
-  img.alt = 'Containment Diagram';
-  img.style.width = '100%';
-  img.style.height = 'auto';
-  imageContainer.appendChild(img);
+//   // Add the image
+//   const img = document.createElement('img');
+//   img.src = 'enrolling-and-graduating.png'; // Replace with your image URL
+//   img.alt = 'Containment Diagram';
+//   img.style.width = '100%';
+//   img.style.height = 'auto';
+//   imageContainer.appendChild(img);
 
-  // Tooltip element
-  const tooltip = document.createElement('div');
-  tooltip.className = 'tooltip';
-  tooltip.style.position = 'absolute';
-  tooltip.style.display = 'none';
-  tooltip.style.backgroundColor = '#000';
-  tooltip.style.color = '#fff';
-  tooltip.style.padding = '5px';
-  tooltip.style.borderRadius = '5px';
-  tooltip.style.fontSize = '12px';
-  tooltip.style.pointerEvents = 'none'; // Prevent interference with mouse events
-  canvasElement.appendChild(tooltip); // Append tooltip to canvasElement
+//   // Tooltip element
+//   const tooltip = document.createElement('div');
+//   tooltip.className = 'tooltip';
+//   tooltip.style.position = 'absolute';
+//   tooltip.style.display = 'none';
+//   tooltip.style.backgroundColor = '#000';
+//   tooltip.style.color = '#fff';
+//   tooltip.style.padding = '5px';
+//   tooltip.style.borderRadius = '5px';
+//   tooltip.style.fontSize = '12px';
+//   tooltip.style.pointerEvents = 'none'; // Prevent interference with mouse events
+//   canvasElement.appendChild(tooltip); // Append tooltip to canvasElement
 
   // Hover areas
   // const hoverAreasData = [
@@ -1134,8 +1158,181 @@ export function displayEnrollingAndGraduating(chartPlaceholder) {
   // });
 
   // Append the imageContainer to the canvasElement
-  canvasElement.appendChild(imageContainer);
+  // canvasElement.appendChild(imageContainer);
+// }
+
+// export function displayEnrollingAndGraduating(chartPlaceholder) {
+//   // Create and configure the canvas element
+//   const canvas = document.createElement("canvas");
+//   canvas.id = "myEnrollingAndGraduating";
+//   canvas.style.border = "1px solid black";
+//   canvas.style.padding = "10px";
+//   canvas.style.margin = "auto";
+//   canvas.style.height = "400px";
+//   canvas.style.width = "600px";
+//   chartPlaceholder.appendChild(canvas);
+
+//   // Create and configure the tooltip element
+//   const tooltip = document.createElement("div");
+//   tooltip.className = "tooltip";
+//   tooltip.style.position = "absolute";
+//   tooltip.style.display = "none";
+//   tooltip.style.backgroundColor = "#000";
+//   tooltip.style.color = "#fff";
+//   tooltip.style.padding = "5px";
+//   tooltip.style.borderRadius = "5px";
+//   tooltip.style.fontSize = "12px";
+//   tooltip.style.pointerEvents = "none"; // Prevent interaction interference
+//   chartPlaceholder.appendChild(tooltip);
+
+//   // Get canvas context
+//   const ctx = canvas.getContext("2d");
+
+//   // Load and draw the PNG image on the canvas
+//   const img = new Image();
+//   img.src = "enrolling-and-graduating.png"; // Replace with the actual image URL
+//   img.onload = () => {
+//       canvas.width = img.width;
+//       canvas.height = img.height;
+//       ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+//   };
+
+//   // Handle mouse move to update the tooltip dynamically
+//   canvas.addEventListener("mousemove", (event) => {
+//       const rect = canvas.getBoundingClientRect();
+//       const x = event.clientX - rect.left;
+//       const y = event.clientY - rect.top;
+
+//       // Get pixel data at mouse hover position
+//       const pixelData = ctx.getImageData(x, y, 1, 1).data;
+//       const [r, g, b, a] = pixelData; // Red, Green, Blue, Alpha values
+
+//       // If the alpha channel is 0, it means no pixel data (transparent region)
+//       if (a === 0) {
+//           tooltip.style.display = "none";
+//           return;
+//       }
+
+//       // Display tooltip and update its content
+//       tooltip.style.left = `${event.pageX + 10}px`;
+//       tooltip.style.top = `${event.pageY + 10}px`;
+//       tooltip.style.display = "block";
+//       tooltip.innerHTML = `
+//           Pixel Color: rgba(${r}, ${g}, ${b}, ${(a / 255).toFixed(2)})<br>
+//           Coordinates: (${x.toFixed(0)}, ${y.toFixed(0)})
+//       `;
+//   });
+
+//   // Hide tooltip when the mouse leaves the canvas
+//   canvas.addEventListener("mouseout", () => {
+//       tooltip.style.display = "none";
+//   });
+// }
+
+export function displayEnrollingAndGraduating(chartPlaceholder) {
+  // Tooltip data mapped to the regions
+  const tooltipData = [
+      {
+          tooltip_title: "4,574 freshmen applied",
+          tooltip_point1: "Up 2.1% from the prior year",
+          region: { x: 131, y: 97, width: 331, height: 100 } // Region 1
+      },
+      {
+          tooltip_title: "65% of applicants admitted",
+          tooltip_point1: "Down 3.7 percentage points from the prior year (102 less)",
+          region: { x: 147, y: 213, width: 296, height: 36 } // Region 2
+      },
+      {
+          tooltip_title: "17% of applicants enrolled",
+          tooltip_point1: "Down 2.9 percentage points from the prior year (106 less)",
+          region: { x: 160, y: 260, width: 260, height: 30 } // Region 3
+      },
+      {
+          tooltip_title: "89% of those enrolled persisted 1 year",
+          tooltip_point1: "Down 1.2 percentage points from the prior year (102 less)",
+          region: { x: 174, y: 305, width: 242, height: 10 } // Region 4
+      },
+      {
+          tooltip_title: "81% of those who persisted graduated in 6 years",
+          tooltip_point1: "Down 2.5 percentage points from the prior year (96 less)",
+          region: { x: 190, y: 320, width: 211, height: 25 } // Region 5
+      }
+  ];
+
+  // Create and configure the canvas element
+  const canvas = document.createElement("canvas");
+  canvas.id = "myEnrollingAndGraduating";
+  canvas.style.border = "1px solid black";
+  canvas.style.height = "400px";
+  canvas.style.width = "600px";
+  canvas.style.display = "flex"; 
+  canvas.style.justifySelf = "center";
+  chartPlaceholder.appendChild(canvas);
+
+  // Create and configure the tooltip element
+  const tooltip = document.createElement("div");
+  tooltip.className = "tooltip";
+  tooltip.style.position = "absolute";
+  tooltip.style.display = "none";
+  tooltip.style.backgroundColor = "#333"; // Darker background for compact style
+  tooltip.style.color = "#fff";
+  tooltip.style.padding = "5px 8px"; // Reduced padding for compactness
+  tooltip.style.borderRadius = "4px"; // Slightly rounded corners
+  tooltip.style.fontSize = "11px"; // Smaller font size for compactness
+  tooltip.style.pointerEvents = "none";
+  tooltip.style.whiteSpace = "normal"; // Allow line wrapping
+  tooltip.style.maxWidth = "200px"; // Limit the width of the tooltip
+  chartPlaceholder.appendChild(tooltip);
+
+  const ctx = canvas.getContext("2d");
+
+  // Load and draw the PNG image on the canvas
+  const img = new Image();
+  img.src = "enrolling-and-graduating.png"; // Replace with the actual image URL
+  img.onload = () => {
+      canvas.width = img.width;
+      canvas.height = img.height;
+      ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+  };
+
+  // Event listener for mousemove to detect regions
+  canvas.addEventListener("mousemove", (event) => {
+      const rect = canvas.getBoundingClientRect();
+      const x = event.clientX - rect.left;
+      const y = event.clientY - rect.top;
+
+      // Check if the pointer is in any defined region
+      const hoveredRegion = tooltipData.find(regionData => {
+          const { x: rx, y: ry, width, height } = regionData.region;
+          return x >= rx && x <= rx + width && y >= ry && y <= ry + height;
+      });
+
+      if (hoveredRegion) {
+          // Show tooltip for the hovered region
+          tooltip.style.left = `${event.pageX + 10}px`;
+          tooltip.style.top = `${event.pageY + 10}px`;
+          tooltip.style.display = "block";
+
+          tooltip.innerHTML = `
+              <div style="font-size: 13px; font-weight: bold; margin-bottom: 3px;">
+                  ${hoveredRegion.tooltip_title}
+              </div>
+              <div style="font-size: 11px;">
+                  ${hoveredRegion.tooltip_point1 || ""}
+              </div>
+          `;
+      } else {
+          tooltip.style.display = "none";
+      }
+  });
+
+  // Hide tooltip on mouseout
+  canvas.addEventListener("mouseout", () => {
+      tooltip.style.display = "none";
+  });
 }
+
+
 
 
 export function displayStudentProgressUnits(chartPlaceholder)
