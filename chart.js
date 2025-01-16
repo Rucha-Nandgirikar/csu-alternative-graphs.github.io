@@ -283,8 +283,9 @@ export function displayGoalTrajectories(chartPlaceholder) {
 export function displayWhatPathDoTheyFollow(chartPlaceholder)
 {
   
-    const url = "https://studentresearch.dashboards.calstate.edu/api/departments-dashboard/what-paths-do-they-follow/chart-data?campus=Bakersfield&college=School%20of%20Arts%20%26%20Humanities&major=Art&flowOption=1";
+    // const url = "https://studentresearch.dashboards.calstate.edu/api/departments-dashboard/what-paths-do-they-follow/chart-data?campus=Bakersfield&college=School%20of%20Arts%20%26%20Humanities&major=Art&flowOption=1";
 
+    const url = "https://studentresearch.dashboards.calstate.edu/api/departments-dashboard/what-paths-do-they-follow/chart-data?campus=Bakersfield&college=School%20of%20Arts%20%26%20Humanities&major=Art%20Education&flowOption=1&years=2022%20to%202024";"
    
 
     // Append the query string to the URL
