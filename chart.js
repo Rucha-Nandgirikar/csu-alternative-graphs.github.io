@@ -145,11 +145,11 @@ export function displayMyEquityGapsMajorGaps(chartPlaceholder) {
 export function displayStudentProgressUnits(chartPlaceholder)
 {
   let h4Element = document.createElement("h4");
-  h4Element.innerText = "Cannot embed alternative graph(faculty-dashboard/student-progress-units) iframe due to security issues"; // or use h4Element.textContent
+  h4Element.innerText = "Cannot embed alternative graph(departments-dashboard/student-progress-units) iframe due to security issues"; // or use h4Element.textContent
   chartPlaceholder.appendChild(h4Element);
 
   // let iframeElement = document.createElement("iframe");
-  // iframeElement.src = `https://studentresearch.dashboards.calstate.edu/faculty-dashboard/student-progress-units`;
+  // iframeElement.src = `https://studentresearch2.dashboards.calstate.edu/departments-dashboard/student-progress-units`;
   // iframeElement.width = "150%";
   // iframeElement.height = "100%";
   // iframeElement.style.transform = "scale(0.50)";
@@ -283,7 +283,7 @@ export function displayGoalTrajectories(chartPlaceholder) {
 export function displayWhatPathDoTheyFollow(chartPlaceholder)
 {
   
-    const url = "https://studentresearch.dashboards.calstate.edu/api/faculty-dashboard/what-paths-do-they-follow/chart-data?campus=Bakersfield&college=School%20of%20Arts%20%26%20Humanities&major=Art&flowOption=1";
+    const url = "https://studentresearch.dashboards.calstate.edu/api/departments-dashboard/what-paths-do-they-follow/chart-data?campus=Bakersfield&college=School%20of%20Arts%20%26%20Humanities&major=Art&flowOption=1";
 
    
 
@@ -414,7 +414,7 @@ const tooltipData = [
   canvas.id = "myEnrollingAndGraduating";
   canvas.style.border = "1px solid black";
   // canvas.style.height = "400px";
-  canvas.style.width = "600px";
+  canvas.style.width = "500px";
   canvas.style.display = "flex"; 
   canvas.style.justifySelf = "center";
   chartPlaceholder.appendChild(canvas);
@@ -453,31 +453,31 @@ const tooltipData = [
 
 
       // Check if the pointer is in any defined region
-      const hoveredRegion = tooltipData.find(regionData => {
-          const { x: rx, y: ry, width, height } = regionData.region;
-          return x >= rx && x <= rx + width && y >= ry && y <= ry + height;
-      });
+      // const hoveredRegion = tooltipData.find(regionData => {
+      //     const { x: rx, y: ry, width, height } = regionData.region;
+      //     return x >= rx && x <= rx + width && y >= ry && y <= ry + height;
+      // });
 
-      if (hoveredRegion) {
+      // if (hoveredRegion) {
           // Show tooltip for the hovered region
           tooltip.style.left = `${event.pageX + 10}px`;
           tooltip.style.top = `${event.pageY + 10}px`;
           tooltip.style.display = "block";
-      //     tooltip.innerHTML = `
-      //      Coordinates: (${x.toFixed(0)}, ${y.toFixed(0)})
-      //  `;
-
           tooltip.innerHTML = `
-              <div style="font-size: 15px; font-weight: bold; margin-bottom: 3px;">
-                  ${hoveredRegion.tooltip_title}
-              </div>
-              <div style="font-size: 12px;">
-                  ${hoveredRegion.tooltip_point1 || ""}
-              </div>
-          `;
-      } else {
-          tooltip.style.display = "none";
-      }
+           Coordinates: (${x.toFixed(0)}, ${y.toFixed(0)})
+       `;
+
+          // tooltip.innerHTML = `
+          //     <div style="font-size: 15px; font-weight: bold; margin-bottom: 3px;">
+          //         ${hoveredRegion.tooltip_title}
+          //     </div>
+          //     <div style="font-size: 12px;">
+          //         ${hoveredRegion.tooltip_point1 || ""}
+          //     </div>
+          // `;
+      // } else {
+          // tooltip.style.display = "none";
+      // }
   });
 
   // Hide tooltip on mouseout
